@@ -29,4 +29,25 @@ public class DigitsSplitterTest {
 
         assertEquals(Arrays.asList(one, two, three), converter.convert(123));
     }
+
+
+    @Test
+    public void shouldConvertEachDigit_fullymocked() {
+        List<Integer> digits = Arrays.asList(1, 2, 3);
+        NumeralSystem system = mock(NumeralSystem.class);
+        when(system.digitsOf(123)).thenReturn(digits);
+
+        Digit one = mock(Digit.class);
+        Digit two = mock(Digit.class);
+        Digit three = mock(Digit.class);
+        DigitFactory factory = mock(DigitFactory.class);
+        when(factory.create(1)).thenReturn(one);
+        when(factory.create(2)).thenReturn(two);
+        when(factory.create(3)).thenReturn(three);
+
+        DigitsSplitter converter = new DigitsSplitter(system, factory);
+
+        assertEquals(Arrays.asList(one, two, three), converter.convert(123));
+    }
+
 }
